@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prediction | Fashion AI</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<nav class="navbar navbar-dark app-nav"><div class="container"><a class="navbar-brand fw-bold" href="/">Fashion<span>AI</span></a><span class="navbar-text text-white-50">Prediction result</span></div></nav>
+<main class="container py-5">
+  <div class="result-heading mb-4"><p class="eyebrow">MODEL OUTPUT</p><h1>Classification <span>Result</span></h1><p class="muted">Your image has been processed .</p></div>
+  <div class="row g-4">
+    <div class="col-lg-5">
+      <div class="panel text-center">
+        <div class="section-kicker">UPLOADED IMAGE</div>
+        <img class="preview-image" src="{{ image_url }}" alt="Uploaded clothing image">
+      </div>
+    </div>
+    <div class="col-lg-7">
+      <div class="panel">
+        <div class="section-kicker">PREDICTED CATEGORY</div>
+        <h2 class="prediction-name">{{ predicted_class }}</h2>
+        <div class="confidence-line"><span>Model confidence</span><strong>{{ confidence }}%</strong></div>
+        <div class="progress confidence-bar"><div class="progress-bar" role="progressbar" style="width: {{ confidence }}%" aria-valuenow="{{ confidence }}" aria-valuemin="0" aria-valuemax="100"></div></div>
+        <hr class="soft-divider">
+        <div class="section-kicker mb-3">TOP 3 PREDICTIONS</div>
+        {% for item in top_predictions %}
+          <div class="top-row">
+            <div class="d-flex justify-content-between mb-1"><span>{{ item.name }}</span><strong>{{ item.confidence }}%</strong></div>
+            <div class="progress"><div class="progress-bar secondary-bar" style="width: {{ item.confidence }}%"></div></div>
+          </div>
+        {% endfor %}
+        <a href="{{ url_for('index') }}" class="btn btn-primary w-100 mt-4 py-3">Classify Another Image <span>→</span></a>
+      </div>
+    </div>
+  </div>
+  <p class="tiny-note text-center mt-4">Confidence is the model's predicted probability, not a guarantee of correctness.</p>
+</main>
+</body>
+</html>
