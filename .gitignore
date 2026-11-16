@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+*.py[cod]
+fashion_model.keras
+static/uploads/*
+!static/uploads/.gitkeep
